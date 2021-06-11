@@ -49,7 +49,7 @@ if __name__ == '__main__':
 
     body = Lfs.ReadAllText(includes_filepath)
 
-    if not Str.InStr(body, f"/{domain_fqdn}\""):
+    if not Str.InStr(body, f"/{domain_fqdn}.conf\""):
         body += f"include \"/etc/bind/slaves/{domain_fqdn}.conf\";\n"
         Lfs.WriteAllText(includes_filepath, body)
     
@@ -58,6 +58,7 @@ zone "__FQDN__" IN {
   type slave;
   masters { __IP__; };
   file "__FQDN__.zone";
+  check-names ignore;
 };
 """, {"__FQDN__": domain_fqdn, "__IP__": master_server})
 
