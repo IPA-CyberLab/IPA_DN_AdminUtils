@@ -45,19 +45,19 @@ if __name__ == '__main__':
 
     includes_filepath = "/etc/bind/named.conf.local"
 
-    zone_filepath = "/etc/bind/slaves/" + domain_fqdn + ".zone"
+    zone_filepath = "/etc/bind/slaves/" + domain_fqdn + ".conf"
 
     body = Lfs.ReadAllText(includes_filepath)
 
     if not Str.InStr(body, f"/{domain_fqdn}\""):
-        body += f"include \"/etc/bind/slaves/{domain_fqdn}\";\n"
+        body += f"include \"/etc/bind/slaves/{domain_fqdn}.conf\";\n"
         Lfs.WriteAllText(includes_filepath, body)
     
     body = Str.ReplaceMultiStr("""
 zone "__FQDN__" IN {
   type slave;
   masters { __IP__; };
-  file "__FQDN__.secondary.zone";
+  file "__FQDN__.zone";
 };
 """, {"__FQDN__": domain_fqdn, "__IP__": master_server})
 
