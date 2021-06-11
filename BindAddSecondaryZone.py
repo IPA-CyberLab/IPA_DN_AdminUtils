@@ -50,7 +50,7 @@ if __name__ == '__main__':
     body = Lfs.ReadAllText(includes_filepath)
 
     if not Str.InStr(body, f"/{domain_fqdn}\""):
-        body += f"include \"/etc/bind/slaves/{domain_fqdn}\";"
+        body += f"include \"/etc/bind/slaves/{domain_fqdn}\";\n"
         Lfs.WriteAllText(includes_filepath, body)
     
     body = Str.ReplaceMultiStr("""
