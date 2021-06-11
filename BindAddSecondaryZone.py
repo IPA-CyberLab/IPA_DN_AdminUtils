@@ -49,7 +49,7 @@ if __name__ == '__main__':
 
     body = Lfs.ReadAllText(includes_filepath)
 
-    if not Str.InStr(f"/{domain_fqdn}\""):
+    if not Str.InStr(body, f"/{domain_fqdn}\""):
         body += f"include \"/etc/bind/slaves/{domain_fqdn}\";"
         Lfs.WriteAllText(includes_filepath, body)
     
