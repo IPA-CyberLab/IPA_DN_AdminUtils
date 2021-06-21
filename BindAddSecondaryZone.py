@@ -5,13 +5,6 @@
 # All Rights Reserved.
 #
 # Author: Daiyuu Nobori
-#
-# 2021/06/02 に生まれて初めて書いたインチキ Python スクリプト！！
-#
-# 処理の内容
-# 1. Let's Encrypt のワイルドカード証明書の発行認証を行なうための TXT レコード応答用 Docker を Linux 上で立ち上げる。
-# 2. Let's Encrypt のワイルドカード証明書の発行認証を要求し、認証を成功させる。
-# 3. 発行された Let's Encrypt のワイルドカード証明書のファイルを整理し、指定したディレクトリに設置する。
 
 import os
 import json
