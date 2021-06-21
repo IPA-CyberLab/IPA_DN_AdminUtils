@@ -20,7 +20,7 @@ from datetime import timedelta, tzinfo, timezone, time, date, datetime
 from submodules.IPA_DN_PyNeko.v1.PyNeko import *
 
 def DoOnce():
-    TIMEOUT_MAX_SECS = 3
+    TIMEOUT_MAX_SECS = 45
     timeout = float(Rand.SInt31() % (3 * 1000)) / 1000.0
     print()
     print("--------------")
