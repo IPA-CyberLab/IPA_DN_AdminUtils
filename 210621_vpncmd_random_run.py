@@ -20,8 +20,8 @@ from datetime import timedelta, tzinfo, timezone, time, date, datetime
 from submodules.IPA_DN_PyNeko.v1.PyNeko import *
 
 def DoOnce():
-    TIMEOUT_MAX_SECS = 45
-    timeout = float(Rand.SInt31() % (3 * 1000)) / 1000.0
+    TIMEOUT_MAX_SECS = 90
+    timeout = float(Rand.SInt31() % (TIMEOUT_MAX_SECS * 1000)) / 1000.0
     print()
     print("--------------")
     print(F"starting vpncmd. timeout={timeout}")
@@ -38,7 +38,7 @@ if __name__ == '__main__':
         except Exception as err:
             print(F"{Time.NowLocal()}: {err}.")
 
-        Kernel.SleepRandInterval(1)
+        Kernel.SleepRandInterval(5)
         
 
 
