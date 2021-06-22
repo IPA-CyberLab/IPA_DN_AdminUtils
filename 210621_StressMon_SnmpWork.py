@@ -36,7 +36,7 @@ if __name__ == '__main__':
         except Exception as err:
             print(F"{Time.NowLocal()}: {err}.")
 
-        Kernel.SleepRandInterval(1)
+        Kernel.SleepRandInterval(10.0)
         
 
 
