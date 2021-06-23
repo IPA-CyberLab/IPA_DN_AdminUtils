@@ -20,11 +20,17 @@ from datetime import timedelta, tzinfo, timezone, time, date, datetime
 from submodules.IPA_DN_PyNeko.v1.PyNeko import *
 
 def ReportOnce():
-    http = HttpClient()
-    res = http.Get("http://127.0.0.1:7007/?method=getall")
+    tmp = ""
+    try:
+        http = HttpClient()
+        res = http.Get("http://127.0.0.1:7007/?method=getall")
+        tmp = res.Body
+    except Exception as err:
+        print(F"{Time.NowLocal()}: HttpClient Error: {err}.")
+        tmp = F"HttpClient Error: {err}"
 
     c = StressMonClient()
-    c.Report(res.Body)
+    c.Report(tmp)
 
 
 if __name__ == '__main__':
