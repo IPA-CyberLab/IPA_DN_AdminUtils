@@ -20,7 +20,7 @@ from datetime import timedelta, tzinfo, timezone, time, date, datetime
 from submodules.IPA_DN_PyNeko.v1.PyNeko import *
 
 def ReportOnce():
-    tmp = "Hello!"
+    tmp = "Hello! Now: " + Time.ToYYYYMMDDHHMMSS(Time.Now)
 
     c = StressMonClient()
     c.Report(tmp)
