@@ -62,12 +62,12 @@ if __name__ == '__main__':
 
     EasyExec.Run(["curl", "--get", "--globoff", "--fail", "-k", "--verbose", "--pinnedpubkey", "sha256//S1UUg1nPQpRdJV3LHM7AKVUVffnABhWFBNbEBQyM6Cc=", git_mirror_url + "/_git_current_commit_id.txt", "-o", remote_commit_filepath])
 
-    remote_commit_id = Str.GetLines(Lfs.ReadAllText(remote_commit_filepath))[0]
+    remote_commit_id = Str.GetFirstFilledLine(src)(Lfs.ReadAllText(remote_commit_filepath))[0]
 
     local_commit_filepath = dest_dir + "/_git_current_commit_id.txt"
 
     try:
-        local_commit_id = Str.GetLines(Lfs.ReadAllText(local_commit_filepath))[0]
+        local_commit_id = Str.GetFirstFilledLine(Lfs.ReadAllText(local_commit_filepath))[0]
     except:
         local_commit_id = "none"
     
