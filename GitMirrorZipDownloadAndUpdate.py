@@ -82,7 +82,7 @@ if __name__ == '__main__':
 
         Lfs.CreateDirectory(dest_dir)
 
-        EasyExec.Run(["rsync", "-avc", "--delete-after", "--ignore-errors", zip_dst_dir, dest_dir], False)
+        EasyExec.Run(["rsync", "-ac", "--delete-after", "--ignore-errors", zip_dst_dir, dest_dir], False)
         
         #EasyExec.Run(["rsync", "-avc", "--delete-after", "--ignore-errors", "/cygdrive/c/TMP/a2/zip_dst/", "/cygdrive/c/TMP/a1/"])
 
