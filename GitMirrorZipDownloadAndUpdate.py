@@ -20,7 +20,7 @@ from submodules.IPA_DN_PyNeko.v1.PyNeko import *
 
 
 # メモ
-# python3 C:\git\IPA_DN_AdminUtils\GitMirrorZipDownloadAndUpdate.py https://abc:def@dnt-gitlab-mirror1-static.sehosts.com/d/dnobori.pc_ahosan/auth/ c:\tmp\a1 c:\tmp\a2
+# python3 C:\git\IPA_DN_AdminUtils\GitMirrorZipDownloadAndUpdate.py https://abc:def@dnt-gitlab-mirror1-static.sehosts.com/d/dnobori.pc_ahosan/auth/ c:\tmp\a1 c:\tmp\a2 sha256//S1UUg1nPQpRdJV3LHM7AKVUVffnABhWFBNbEBQyM6Cc=
 
 # メイン処理
 if __name__ == '__main__':
@@ -64,9 +64,9 @@ if __name__ == '__main__':
 
     remote_commit_filepath = zip_src_dir + "/commit_id.txt"
 
-    EasyExec.Run(["curl", "--get", "--globoff", "--fail", "-k", "--verbose", "--pinnedpubkey", ssl_pubkey, git_mirror_url + "/_git_current_commit_id.txt", "-o", remote_commit_filepath])
+    EasyExec.Run(["curl", "--get", "--globoff", "--fail", "-k", "--pinnedpubkey", ssl_pubkey, git_mirror_url + "/_git_current_commit_id.txt", "-o", remote_commit_filepath])
 
-    remote_commit_id = Str.GetFirstFilledLine(src)(Lfs.ReadAllText(remote_commit_filepath))[0]
+    remote_commit_id = Str.GetFirstFilledLine(Lfs.ReadAllText(remote_commit_filepath))[0]
 
     local_commit_filepath = dest_dir + "/_git_current_commit_id.txt"
 
@@ -76,13 +76,14 @@ if __name__ == '__main__':
         local_commit_id = "none"
     
     if not Str.IsSamei(local_commit_id, remote_commit_id):
-        EasyExec.Run(["curl", "--get", "--globoff", "--fail", "-k", "--verbose", "--pinnedpubkey", ssl_pubkey, git_mirror_url + "/_download_zip/", "-o", zip_filepath])
+        EasyExec.Run(["curl", "--get", "--globoff", "--fail", "-k", "--pinnedpubkey", ssl_pubkey, git_mirror_url + "/_download_zip/", "-o", zip_filepath])
 
         EasyExec.Run(["unzip", "-o", zip_filepath, "-d", zip_dst_dir])
 
         Lfs.CreateDirectory(dest_dir)
 
         EasyExec.Run(["rsync", "-avc", "--delete-after", "--ignore-errors", zip_dst_dir, dest_dir])
+        
         #EasyExec.Run(["rsync", "-avc", "--delete-after", "--ignore-errors", "/cygdrive/c/TMP/a2/zip_dst/", "/cygdrive/c/TMP/a1/"])
 
 
