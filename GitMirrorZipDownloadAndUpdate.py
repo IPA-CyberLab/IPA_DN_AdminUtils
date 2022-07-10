@@ -34,6 +34,8 @@ if __name__ == '__main__':
                         type=str, help="Specify tmp dir (e.g. /tmp/abc/)")
     parser.add_argument("ssl_pubkey", metavar="<ssl_pubkey>",
                         type=str, help="Specify ssl_pubkey (e.g. sha256//aaaaa)")
+    parser.add_argument("touchpath_if_updated", metavar="<touchpath_if_updated>",
+                        type=str, help="Specify touchpath_if_updated (e.g. /tmp/updated.txt)")
 
     args = parser.parse_args()
 
@@ -44,6 +46,8 @@ if __name__ == '__main__':
     dest_dir: str = args.dest_dir
 
     ssl_pubkey: str = args.ssl_pubkey
+
+    touchpath_if_updated: str = args.touchpath_if_updated
 
     if not dest_dir.endswith("/"):
         dest_dir = dest_dir + "/"
@@ -85,6 +89,12 @@ if __name__ == '__main__':
         EasyExec.Run(["rsync", "-ac", "--delete-after", "--ignore-errors", zip_dst_dir, dest_dir], False)
         
         #EasyExec.Run(["rsync", "-avc", "--delete-after", "--ignore-errors", "/cygdrive/c/TMP/a2/zip_dst/", "/cygdrive/c/TMP/a1/"])
+
+        Lfs.WriteAllText(touchpath_if_updated, "updated")
+
+    else:
+        if Lfs.IsFileExists(touchpath_if_updated):
+            Lfs.DeleteFile(touchpath_if_updated)
 
 
 
