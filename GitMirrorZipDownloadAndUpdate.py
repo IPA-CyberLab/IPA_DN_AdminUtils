@@ -64,7 +64,7 @@ if __name__ == '__main__':
 
     remote_commit_filepath = zip_src_dir + "/commit_id.txt"
 
-    EasyExec.RunPiped(["curl", "--get", "--globoff", "--fail", "-k", "--pinnedpubkey", ssl_pubkey, git_mirror_url + "/_git_current_commit_id.txt", "-o", remote_commit_filepath])
+    EasyExec.Run(["/usr/bin/curl", "--get", "--globoff", "--fail", "-k", "--pinnedpubkey", ssl_pubkey, git_mirror_url + "/_git_current_commit_id.txt", "-o", remote_commit_filepath])
 
     remote_commit_id = Str.GetFirstFilledLine(Lfs.ReadAllText(remote_commit_filepath))[0]
 
