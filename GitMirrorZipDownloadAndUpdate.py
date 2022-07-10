@@ -32,6 +32,8 @@ if __name__ == '__main__':
                         type=str, help="Specify destination URL (e.g. /data1/abc/)")
     parser.add_argument("tmp_dir", metavar="<tmp_dir>",
                         type=str, help="Specify tmp dir (e.g. /tmp/abc/)")
+    parser.add_argument("ssl_pubkey", metavar="<ssl_pubkey>",
+                        type=str, help="Specify ssl_pubkey (e.g. sha256//aaaaa)")
 
     args = parser.parse_args()
 
@@ -40,6 +42,8 @@ if __name__ == '__main__':
     tmp_dir: str = args.tmp_dir
 
     dest_dir: str = args.dest_dir
+
+    ssl_pubkey: str = args.ssl_pubkey
 
     if not dest_dir.endswith("/"):
         dest_dir = dest_dir + "/"
@@ -60,7 +64,7 @@ if __name__ == '__main__':
 
     remote_commit_filepath = zip_src_dir + "/commit_id.txt"
 
-    EasyExec.Run(["curl", "--get", "--globoff", "--fail", "-k", "--verbose", "--pinnedpubkey", "sha256//S1UUg1nPQpRdJV3LHM7AKVUVffnABhWFBNbEBQyM6Cc=", git_mirror_url + "/_git_current_commit_id.txt", "-o", remote_commit_filepath])
+    EasyExec.Run(["curl", "--get", "--globoff", "--fail", "-k", "--verbose", "--pinnedpubkey", ssl_pubkey, git_mirror_url + "/_git_current_commit_id.txt", "-o", remote_commit_filepath])
 
     remote_commit_id = Str.GetFirstFilledLine(src)(Lfs.ReadAllText(remote_commit_filepath))[0]
 
@@ -72,14 +76,14 @@ if __name__ == '__main__':
         local_commit_id = "none"
     
     if not Str.IsSamei(local_commit_id, remote_commit_id):
-        EasyExec.Run(["curl", "--get", "--globoff", "--fail", "-k", "--verbose", "--pinnedpubkey", "sha256//S1UUg1nPQpRdJV3LHM7AKVUVffnABhWFBNbEBQyM6Cc=", git_mirror_url + "/_download_zip/", "-o", zip_filepath])
+        EasyExec.Run(["curl", "--get", "--globoff", "--fail", "-k", "--verbose", "--pinnedpubkey", ssl_pubkey, git_mirror_url + "/_download_zip/", "-o", zip_filepath])
 
         EasyExec.Run(["unzip", "-o", zip_filepath, "-d", zip_dst_dir])
 
         Lfs.CreateDirectory(dest_dir)
 
-        #EasyExec.Run(["rsync", "-avc", "--delete-after", "--ignore-errors", zip_dst_dir, dest_dir])
-        EasyExec.Run(["rsync", "-avc", "--delete-after", "--ignore-errors", "/cygdrive/c/TMP/a2/zip_dst/", "/cygdrive/c/TMP/a1/"])
+        EasyExec.Run(["rsync", "-avc", "--delete-after", "--ignore-errors", zip_dst_dir, dest_dir])
+        #EasyExec.Run(["rsync", "-avc", "--delete-after", "--ignore-errors", "/cygdrive/c/TMP/a2/zip_dst/", "/cygdrive/c/TMP/a1/"])
 
 
 
