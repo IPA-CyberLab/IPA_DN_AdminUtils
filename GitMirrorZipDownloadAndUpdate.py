@@ -78,7 +78,7 @@ if __name__ == '__main__':
     if not Str.IsSamei(local_commit_id, remote_commit_id):
         EasyExec.Run(["curl", "--get", "--globoff", "--fail", "-k", "--pinnedpubkey", ssl_pubkey, git_mirror_url + "/_download_zip/", "-o", zip_filepath], False)
 
-        EasyExec.Run(["unzip", "-o", zip_filepath, "-d", zip_dst_dir], False)
+        EasyExec.Run(["unzip", "-oq", zip_filepath, "-d", zip_dst_dir], False)
 
         Lfs.CreateDirectory(dest_dir)
 
