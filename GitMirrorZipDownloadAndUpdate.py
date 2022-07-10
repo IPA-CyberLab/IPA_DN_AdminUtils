@@ -75,9 +75,6 @@ if __name__ == '__main__':
     except:
         local_commit_id = "none"
     
-    print ("local: " + local_commit_id)
-    print ("remote: " + remote_commit_id)
-    
     if not Str.IsSamei(local_commit_id, remote_commit_id):
         EasyExec.Run(["curl", "--get", "--silent", "--globoff", "--fail", "-k", "--pinnedpubkey", ssl_pubkey, git_mirror_url + "/_download_zip/", "-o", zip_filepath], False)
 
