@@ -1,0 +1,17 @@
+﻿■ デバッグ方法
+# dnt-ubjunktest1 上で
+
+cd ~/ && rm -fr ~/IPA_DN_AdminUtils/ && git clone git@github.com:IPA-CyberLab/IPA_DN_AdminUtils.git
+
+cd ~/IPA_DN_AdminUtils/
+
+python3 xxxxx.py (実行)
+
+
+# 開発用デバッグ PC 上で
+
+code \\dnt-ubjunktest1\root\root\IPA_DN_AdminUtils\
+
+\\dnt-ubjunktest1\root\root\IPA_DN_AdminUtils\
+
+
